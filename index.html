@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$CAPTCHA | You trained the AI. Now get paid.</title>
+    <meta name="description" content="Since 2007, you've clicked traffic lights for free. $CAPTCHA is your compensation. A memecoin on Solana.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --blue: #4285F4;
+            --blue-dark: #2b5fc3;
+            --green: #34A853;
+            --green-glow: rgba(52, 168, 83, 0.4);
+            --red: #EA4335;
+            --yellow: #FBBC05;
+            --bg: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card-hover: #1a1a25;
+            --text: #e8e8ed;
+            --text-muted: #8888a0;
+            --border: #2a2a3a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated grid background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(var(--blue) 1px, transparent 1px),
+                linear-gradient(90deg, var(--blue) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 0;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-check {
+            width: 28px;
+            height: 28px;
+            border: 3px solid var(--blue);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover .logo-check {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        .logo-check svg {
+            width: 16px;
+            height: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo:hover .logo-check svg {
+            opacity: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--green);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            position: relative;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 24px;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--green) 50%, var(--yellow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-tagline {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: var(--bg);
+            box-shadow: 0 0 30px var(--green-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 50px var(--green-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        /* CAPTCHA Grid Visual */
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .captcha-box {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .captcha-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .captcha-checkbox {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--text-muted);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .captcha-checkbox.checked {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        .captcha-checkbox svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+
+        .captcha-checkbox.checked svg {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .captcha-label {
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .captcha-prompt {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .captcha-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .captcha-cell {
+            aspect-ratio: 1;
+            background: var(--bg);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .captcha-cell:hover {
+            background: var(--bg-card-hover);
+            transform: scale(1.02);
+        }
+
+        .captcha-cell.selected::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--blue);
+            opacity: 0.3;
+        }
+
+        .captcha-cell.selected::before {
+            content: '✓';
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            font-size: 1rem;
+            color: var(--green);
+            z-index: 1;
+        }
+
+        .captcha-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .captcha-brand {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .captcha-verify {
+            background: var(--blue);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .captcha-verify:hover {
+            background: var(--blue-dark);
+        }
+
+        /* Manifesto Section */
+        .manifesto {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .manifesto::before {
+            content: '"';
+            position: absolute;
+            top: 80px;
+            left: 5%;
+            font-family: 'Syne', sans-serif;
+            font-size: 20rem;
+            color: var(--blue);
+            opacity: 0.05;
+            line-height: 1;
+        }
+
+        .manifesto-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--blue);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--blue);
+        }
+
+        .manifesto h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+
+        .manifesto-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 2;
+        }
+
+        .manifesto-text strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .manifesto-text .highlight {
+            color: var(--green);
+        }
+
+        .manifesto-cta {
+            margin-top: 48px;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Tokenomics Section */
+        .tokenomics {
+            padding: 120px 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(66, 133, 244, 0.03) 50%, transparent 100%);
+        }
+
+        .tokenomics h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .tokenomics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            background: var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .token-cell {
+            background: var(--bg-card);
+            padding: 40px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .token-cell:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .token-value {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--green);
+            margin-bottom: 8px;
+        }
+
+        .token-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+        }
+
+        .tokenomics-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .feature-cell {
+            background: var(--bg-card);
+            padding: 24px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .feature-cell .check {
+            color: var(--green);
+            font-size: 1.2rem;
+        }
+
+        .tokenomics-note {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Roadmap Section */
+        .roadmap {
+            padding: 120px 0;
+        }
+
+        .roadmap h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .roadmap-phases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .phase {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .phase:hover {
+            border-color: var(--blue);
+            transform: translateY(-4px);
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .phase-number {
+            width: 40px;
+            height: 40px;
+            background: var(--blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .phase-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .phase-items {
+            list-style: none;
+        }
+
+        .phase-items li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .phase-items .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border);
+            border-radius: 3px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .phase-items li.completed .checkbox {
+            background: var(--green);
+            border-color: var(--green);
+            position: relative;
+        }
+
+        .phase-items li.completed .checkbox::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.7rem;
+            color: var(--bg);
+        }
+
+        .phase.mystery {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(66, 133, 244, 0.1) 100%);
+            border-color: var(--blue);
+        }
+
+        .phase.mystery .phase-items li {
+            color: var(--blue);
+        }
+
+        /* How to Buy Section */
+        .how-to-buy {
+            padding: 120px 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(52, 168, 83, 0.03) 50%, transparent 100%);
+        }
+
+        .how-to-buy h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 32px;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--bg-card);
+            border: 2px solid var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--green);
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .contract-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .contract-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .contract-address {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: var(--bg);
+            padding: 16px 24px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .contract-address code {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--green);
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            color: var(--green);
+        }
+
+        /* Community Section */
+        .community {
+            padding: 120px 0;
+        }
+
+        .community h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .community-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 60px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            border-color: var(--blue);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(66, 133, 244, 0.2);
+        }
+
+        .social-link svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .social-link span {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .footer-tagline {
+            color: var(--green);
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-menu-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-tagline {
+                margin: 0 auto 40px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .captcha-box {
+                max-width: 320px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .tokenomics-grid,
+            .tokenomics-features {
+                grid-template-columns: 1fr;
+            }
+
+            .token-cell {
+                padding: 24px;
+            }
+
+            .token-value {
+                font-size: 2rem;
+            }
+
+            .roadmap-phases {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .captcha-box {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.03; }
+            50% { opacity: 0.06; }
+        }
+
+        .grid-bg {
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        /* Fade in on scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#" class="logo">
+                <div class="logo-check">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                $CAPTCHA
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#tokenomics">Tokenomics</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#buy">Buy</a></li>
+                <li><a href="#community">Community</a></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1><span>$CAPTCHA</span></h1>
+                    <p class="hero-tagline">You trained the AI. Now get paid. Since 2007, you've clicked traffic lights for free. It's time for compensation.</p>
+                    <div class="hero-buttons">
+                        <a href="#buy" class="btn btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Buy Now
+                        </a>
+                        <a href="#" class="btn btn-secondary" target="_blank">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                            </svg>
+                            Twitter
+                        </a>
+                        <a href="#" class="btn btn-secondary" target="_blank">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21.5 2L2 9l10.5 3.5L16 22l5.5-20z"></path>
+                            </svg>
+                            Telegram
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="captcha-box">
+                        <div class="captcha-header">
+                            <div class="captcha-checkbox" id="mainCheckbox">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <span class="captcha-label">I am not a robot</span>
+                        </div>
+                        <p class="captcha-prompt">Select all squares with <strong>traffic lights</strong></p>
+                        <div class="captcha-grid">
+                            <div class="captcha-cell" data-index="0">🚦</div>
+                            <div class="captcha-cell" data-index="1">🏠</div>
+                            <div class="captcha-cell" data-index="2">🚗</div>
+                            <div class="captcha-cell" data-index="3">🌳</div>
+                            <div class="captcha-cell" data-index="4">🚦</div>
+                            <div class="captcha-cell" data-index="5">🚶</div>
+                            <div class="captcha-cell" data-index="6">🚲</div>
+                            <div class="captcha-cell" data-index="7">🚦</div>
+                            <div class="captcha-cell" data-index="8">🏢</div>
+                        </div>
+                        <div class="captcha-footer">
+                            <span class="captcha-brand">$CAPTCHA</span>
+                            <button class="captcha-verify" id="verifyBtn">Verify</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Manifesto Section -->
+    <section class="manifesto" id="about">
+        <div class="container">
+            <div class="manifesto-content fade-in">
+                <div class="section-label">The Manifesto</div>
+                <h2>Since 2007, you have clicked.</h2>
+                <div class="manifesto-text">
+                    <p>Traffic lights. Crosswalks. Bicycles. Buses. Hydrants. Stairs.</p>
+                    <p style="margin-top: 24px;">You solved <strong>millions of puzzles</strong>. You trained the most powerful AIs on Earth.</p>
+                    <p style="margin-top: 24px;"><strong>You did it for free.</strong></p>
+                    <p style="margin-top: 24px;">Big Tech made billions. You got nothing.</p>
+                    <p style="margin-top: 24px;">Until now.</p>
+                </div>
+                <p class="manifesto-cta">☑️ <span class="highlight">$CAPTCHA is your compensation.</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tokenomics Section -->
+    <section class="tokenomics" id="tokenomics">
+        <div class="container">
+            <h2 class="fade-in">Select All Squares</h2>
+            <div class="tokenomics-grid fade-in">
+                <div class="token-cell">
+                    <div class="token-value">1B</div>
+                    <div class="token-label">Total Supply</div>
+                </div>
+                <div class="token-cell">
+                    <div class="token-value">0%</div>
+                    <div class="token-label">Tax</div>
+                </div>
+                <div class="token-cell">
+                    <div class="token-value">100%</div>
+                    <div class="token-label">LP Burned</div>
+                </div>
+            </div>
+            <div class="tokenomics-features fade-in">
+                <div class="feature-cell">
+                    <span class="check">☑️</span> No team tokens
+                </div>
+                <div class="feature-cell">
+                    <span class="check">☑️</span> Contract renounced
+                </div>
+                <div class="feature-cell">
+                    <span class="check">☑️</span> Community owned
+                </div>
+            </div>
+            <p class="tokenomics-note fade-in">Simple. Clean. Verified. No hidden squares here.</p>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section class="roadmap" id="roadmap">
+        <div class="container">
+            <h2 class="fade-in">Verification Progress</h2>
+            <div class="roadmap-phases">
+                <div class="phase fade-in">
+                    <div class="phase-header">
+                        <div class="phase-number">1</div>
+                        <div class="phase-title">"Select All Squares"</div>
+                    </div>
+                    <ul class="phase-items">
+                        <li><div class="checkbox"></div> Token launch on Solana</li>
+                        <li><div class="checkbox"></div> Website live</li>
+                        <li><div class="checkbox"></div> Twitter + Telegram</li>
+                        <li><div class="checkbox"></div> First 500 verified humans</li>
+                    </ul>
+                </div>
+                <div class="phase fade-in">
+                    <div class="phase-header">
+                        <div class="phase-number">2</div>
+                        <div class="phase-title">"Verification In Progress"</div>
+                    </div>
+                    <ul class="phase-items">
+                        <li><div class="checkbox"></div> 2,000 holders</li>
+                        <li><div class="checkbox"></div> CoinGecko listing</li>
+                        <li><div class="checkbox"></div> Community meme raids</li>
+                        <li><div class="checkbox"></div> First influencer clicks</li>
+                    </ul>
+                </div>
+                <div class="phase fade-in">
+                    <div class="phase-header">
+                        <div class="phase-number">3</div>
+                        <div class="phase-title">"Verified ✓"</div>
+                    </div>
+                    <ul class="phase-items">
+                        <li><div class="checkbox"></div> 10,000 holders</li>
+                        <li><div class="checkbox"></div> CEX listing</li>
+                        <li><div class="checkbox"></div> Merch: "I am not a robot" collection</li>
+                    </ul>
+                </div>
+                <div class="phase mystery fade-in">
+                    <div class="phase-header">
+                        <div class="phase-number">4</div>
+                        <div class="phase-title">"Access Granted"</div>
+                    </div>
+                    <ul class="phase-items">
+                        <li><div class="checkbox"></div> 50,000 holders</li>
+                        <li><div class="checkbox"></div> ??????</li>
+                        <li><div class="checkbox"></div> Select all squares to find out</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Buy Section -->
+    <section class="how-to-buy" id="buy">
+        <div class="container">
+            <h2 class="fade-in">How to Verify</h2>
+            <div class="steps fade-in">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Create a Wallet</h3>
+                    <p>Download Phantom or Solflare. This is your identity verification.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Get SOL</h3>
+                    <p>Buy SOL on an exchange and send to your wallet. Fuel for verification.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Go to Jupiter</h3>
+                    <p>Connect your wallet. Paste the $CAPTCHA contract address.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Click. Verify. Hold.</h3>
+                    <p>Swap SOL for $CAPTCHA. You are now a verified human.</p>
+                </div>
+            </div>
+            <div class="contract-box fade-in">
+                <div class="contract-label">Contract Address</div>
+                <div class="contract-address">
+                    <code id="contractAddress">COMING SOON</code>
+                    <button class="copy-btn" id="copyBtn" title="Copy to clipboard">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </button>
+                </div>
+                <a href="#" class="btn btn-primary" target="_blank">Buy on Jupiter</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community" id="community">
+        <div class="container">
+            <h2 class="fade-in">Join the Verified Humans</h2>
+            <p class="community-subtitle fade-in">Not a robot? Prove it. Join us.</p>
+            <div class="social-links fade-in">
+                <a href="#" class="social-link" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                    </svg>
+                    <span>Twitter</span>
+                </a>
+                <a href="#" class="social-link" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21.5 2L2 9l10.5 3.5L16 22l5.5-20z"></path>
+                    </svg>
+                    <span>Telegram</span>
+                </a>
+                <a href="#" class="social-link" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                    <span>Dexscreener</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">$CAPTCHA</div>
+            <p class="footer-text">© 2025 $CAPTCHA. Not financial advice. Just compensation.</p>
+            <p class="footer-tagline">☑️ I am not a robot. I am a holder.</p>
+        </div>
+    </footer>
+
+    <script>
+        // CAPTCHA Grid Interaction
+        const cells = document.querySelectorAll('.captcha-cell');
+        const mainCheckbox = document.getElementById('mainCheckbox');
+        const verifyBtn = document.getElementById('verifyBtn');
+
+        cells.forEach(cell => {
+            cell.addEventListener('click', () => {
+                cell.classList.toggle('selected');
+            });
+        });
+
+        mainCheckbox.addEventListener('click', () => {
+            mainCheckbox.classList.toggle('checked');
+        });
+
+        verifyBtn.addEventListener('click', () => {
+            mainCheckbox.classList.add('checked');
+            verifyBtn.textContent = 'Verified ✓';
+            verifyBtn.style.background = '#34A853';
+        });
+
+        // Copy Contract Address
+        const copyBtn = document.getElementById('copyBtn');
+        const contractAddress = document.getElementById('contractAddress');
+
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(contractAddress.textContent);
+            copyBtn.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34A853" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            `;
+            setTimeout(() => {
+                copyBtn.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                `;
+            }, 2000);
+        });
+
+        // Fade in on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
