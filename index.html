@@ -444,13 +444,13 @@
             font-weight: 700;
         }
 
-        /* Tokenomics Section */
-        .tokenomics {
+        /* About Token Section */
+        .about-token {
             padding: 120px 0;
             background: linear-gradient(180deg, transparent 0%, rgba(66, 133, 244, 0.03) 50%, transparent 100%);
         }
 
-        .tokenomics h2 {
+        .about-token h2 {
             font-family: 'Syne', sans-serif;
             font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 800;
@@ -458,48 +458,52 @@
             margin-bottom: 60px;
         }
 
-        .tokenomics-grid {
+        .about-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 4px;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto 40px;
             background: var(--border);
             border-radius: 12px;
             overflow: hidden;
         }
 
-        .token-cell {
+        .about-cell {
             background: var(--bg-card);
             padding: 40px 24px;
             text-align: center;
             transition: all 0.3s ease;
         }
 
-        .token-cell:hover {
+        .about-cell:hover {
             background: var(--bg-card-hover);
         }
 
-        .token-value {
-            font-family: 'Syne', sans-serif;
+        .about-icon {
             font-size: 2.5rem;
-            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .about-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
             color: var(--green);
             margin-bottom: 8px;
         }
 
-        .token-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .about-desc {
+            font-size: 0.8rem;
             color: var(--text-muted);
+            line-height: 1.5;
         }
 
-        .tokenomics-features {
+        .about-features {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 4px;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
             background: var(--border);
             border-radius: 12px;
@@ -523,7 +527,7 @@
             font-size: 1.2rem;
         }
 
-        .tokenomics-note {
+        .about-note {
             text-align: center;
             margin-top: 40px;
             color: var(--text-muted);
@@ -692,53 +696,36 @@
             line-height: 1.6;
         }
 
-        .contract-box {
+        .buy-box {
             max-width: 600px;
             margin: 0 auto;
             background: var(--bg-card);
             border: 2px solid var(--border);
             border-radius: 12px;
-            padding: 24px;
+            padding: 32px;
             text-align: center;
         }
 
-        .contract-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
+        .buy-box-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--green);
         }
 
-        .contract-address {
+        .buy-box-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .buy-links {
             display: flex;
-            align-items: center;
+            gap: 16px;
             justify-content: center;
-            gap: 12px;
-            background: var(--bg);
-            padding: 16px 24px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .contract-address code {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--green);
-            word-break: break-all;
-        }
-
-        .copy-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            padding: 8px;
-            transition: color 0.3s ease;
-        }
-
-        .copy-btn:hover {
-            color: var(--green);
+            flex-wrap: wrap;
         }
 
         /* Community Section */
@@ -870,17 +857,13 @@
                 display: block;
             }
 
-            .tokenomics-grid,
-            .tokenomics-features {
+            .about-grid,
+            .about-features {
                 grid-template-columns: 1fr;
             }
 
-            .token-cell {
+            .about-cell {
                 padding: 24px;
-            }
-
-            .token-value {
-                font-size: 2rem;
             }
 
             .roadmap-phases {
@@ -936,7 +919,7 @@
             </a>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
-                <li><a href="#tokenomics">Tokenomics</a></li>
+                <li><a href="#token">Token</a></li>
                 <li><a href="#roadmap">Roadmap</a></li>
                 <li><a href="#buy">Buy</a></li>
                 <li><a href="#community">Community</a></li>
@@ -1029,36 +1012,39 @@
         </div>
     </section>
 
-    <!-- Tokenomics Section -->
-    <section class="tokenomics" id="tokenomics">
+    <!-- About Token Section -->
+    <section class="about-token" id="token">
         <div class="container">
             <h2 class="fade-in">Select All Squares</h2>
-            <div class="tokenomics-grid fade-in">
-                <div class="token-cell">
-                    <div class="token-value">1B</div>
-                    <div class="token-label">Total Supply</div>
+            <div class="about-grid fade-in">
+                <div class="about-cell">
+                    <div class="about-icon">🚀</div>
+                    <div class="about-title">Fair Launch</div>
+                    <div class="about-desc">No presale. No team tokens. Everyone starts equal.</div>
                 </div>
-                <div class="token-cell">
-                    <div class="token-value">0%</div>
-                    <div class="token-label">Tax</div>
+                <div class="about-cell">
+                    <div class="about-icon">🔥</div>
+                    <div class="about-title">pump.fun</div>
+                    <div class="about-desc">Launched on pump.fun for maximum transparency.</div>
                 </div>
-                <div class="token-cell">
-                    <div class="token-value">100%</div>
-                    <div class="token-label">LP Burned</div>
+                <div class="about-cell">
+                    <div class="about-icon">🛡️</div>
+                    <div class="about-title">Safe</div>
+                    <div class="about-desc">Mint & freeze authority revoked. No rugs here.</div>
                 </div>
             </div>
-            <div class="tokenomics-features fade-in">
+            <div class="about-features fade-in">
                 <div class="feature-cell">
-                    <span class="check">☑️</span> No team tokens
+                    <span class="check">☑️</span> No presale
                 </div>
                 <div class="feature-cell">
-                    <span class="check">☑️</span> Contract renounced
+                    <span class="check">☑️</span> No team tokens
                 </div>
                 <div class="feature-cell">
                     <span class="check">☑️</span> Community owned
                 </div>
             </div>
-            <p class="tokenomics-note fade-in">Simple. Clean. Verified. No hidden squares here.</p>
+            <p class="about-note fade-in">Simple. Clean. Verified. No hidden squares here.</p>
         </div>
     </section>
 
@@ -1073,7 +1059,7 @@
                         <div class="phase-title">"Select All Squares"</div>
                     </div>
                     <ul class="phase-items">
-                        <li><div class="checkbox"></div> Token launch on Solana</li>
+                        <li><div class="checkbox"></div> Token launch on pump.fun</li>
                         <li><div class="checkbox"></div> Website live</li>
                         <li><div class="checkbox"></div> Twitter + Telegram</li>
                         <li><div class="checkbox"></div> First 500 verified humans</li>
@@ -1085,10 +1071,10 @@
                         <div class="phase-title">"Verification In Progress"</div>
                     </div>
                     <ul class="phase-items">
+                        <li><div class="checkbox"></div> Raydium migration</li>
                         <li><div class="checkbox"></div> 2,000 holders</li>
                         <li><div class="checkbox"></div> CoinGecko listing</li>
                         <li><div class="checkbox"></div> Community meme raids</li>
-                        <li><div class="checkbox"></div> First influencer clicks</li>
                     </ul>
                 </div>
                 <div class="phase fade-in">
@@ -1134,8 +1120,8 @@
                 </div>
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>Go to Jupiter</h3>
-                    <p>Connect your wallet. Paste the $CAPTCHA contract address.</p>
+                    <h3>Find $CAPTCHA</h3>
+                    <p>Go to pump.fun or Jupiter. Search for $CAPTCHA.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">4</div>
@@ -1143,18 +1129,15 @@
                     <p>Swap SOL for $CAPTCHA. You are now a verified human.</p>
                 </div>
             </div>
-            <div class="contract-box fade-in">
-                <div class="contract-label">Contract Address</div>
-                <div class="contract-address">
-                    <code id="contractAddress">COMING SOON</code>
-                    <button class="copy-btn" id="copyBtn" title="Copy to clipboard">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                        </svg>
-                    </button>
+            <div class="buy-box fade-in">
+                <div class="buy-box-title">🚦 Get $CAPTCHA</div>
+                <div class="buy-box-desc">
+                    Available on pump.fun. After bonding curve completes, liquidity migrates to Raydium automatically.
                 </div>
-                <a href="#" class="btn btn-primary" target="_blank">Buy on Jupiter</a>
+                <div class="buy-links">
+                    <a href="#" class="btn btn-primary" target="_blank">Buy on pump.fun</a>
+                    <a href="#" class="btn btn-secondary" target="_blank">View Chart</a>
+                </div>
             </div>
         </div>
     </section>
@@ -1182,6 +1165,13 @@
                         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                     </svg>
                     <span>Dexscreener</span>
+                </a>
+                <a href="#" class="social-link" target="_blank">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                    </svg>
+                    <span>pump.fun</span>
                 </a>
             </div>
         </div>
@@ -1216,27 +1206,6 @@
             mainCheckbox.classList.add('checked');
             verifyBtn.textContent = 'Verified ✓';
             verifyBtn.style.background = '#34A853';
-        });
-
-        // Copy Contract Address
-        const copyBtn = document.getElementById('copyBtn');
-        const contractAddress = document.getElementById('contractAddress');
-
-        copyBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(contractAddress.textContent);
-            copyBtn.innerHTML = `
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34A853" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-            `;
-            setTimeout(() => {
-                copyBtn.innerHTML = `
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                `;
-            }, 2000);
         });
 
         // Fade in on scroll
